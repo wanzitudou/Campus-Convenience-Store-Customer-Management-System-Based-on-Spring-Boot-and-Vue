@@ -20,12 +20,6 @@
 - **智能推荐**：基于用户行为的 ALS 协同过滤，独立 Python 服务，支持降级为热门商品。
 - **AI 客服**：Spring AI + DeepSeek，SSE 流式对话，多轮记忆，Markdown 渲染。
 
-## 📸 项目截图
-
-![首页](docs/images/home.png)
-![智能推荐](docs/images/recommend.png)
-![AI客服](docs/images/ai-chat.png)
-![后台管理](docs/images/admin.png)
 
 ## 🧠 项目亮点
 
