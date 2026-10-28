@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.OrdersMapper">
+
+    <select id="selectAll" resultType="com.example.entity.Orders">
+        select orders.*, user.name as userName from `orders`
+        left join user on orders.user_id = user.id
+        left join order_detail on order_detail.order_id = orders.id
+        <where>
+            <if test="orderNo != null"> and orders.order_no like concat('%', #{orderNo}, '%')</if>
+            <if test="goodsName != null"> and order_detail.goods_name like concat('%', #{goodsName}, '%')</if>
+            <if test="userId != null"> and orders.user_id = #{userId}</if>
+        </where>
+        group by orders.id
+        order by orders.id desc
+    </select>
+
+    <select id="selectById" resultType="com.example.entity.Orders">
+        select * from `orders` where id = #{id}
+    </select>
+
+    <delete id="deleteById">
+        delete from `orders` where id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.example.entity.Orders" useGeneratedKeys="true" keyProperty="id">
+        insert into `orders`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="orderNo != null">order_no,</if>
+            <if test="total != null">total,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="status != null">status,</if>
+            <if test="time != null">time,</if>
+            <if test="deliverType != null">deliver_type,</if>
+            <if test="address != null">address,</if>
+            <if test="deliver != null">deliver,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="orderNo != null">#{orderNo},</if>
+            <if test="total != null">#{total},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="status != null">#{status},</if>
+            <if test="time != null">#{time},</if>
+            <if test="deliverType != null">#{deliverType},</if>
+            <if test="address != null">#{address},</if>
+            <if test="deliver != null">#{deliver},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.example.entity.Orders">
+        update `orders`
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="orderNo != null">
+                order_no = #{orderNo},
+            </if>
+            <if test="total != null">
+                total = #{total},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="time != null">
+                time = #{time},
+            </if>
+            <if test="deliverType != null">
+                deliver_type = #{deliverType},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+            <if test="deliver != null">
+                deliver = #{deliver},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

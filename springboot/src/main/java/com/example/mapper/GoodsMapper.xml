@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.GoodsMapper">
+
+    <!-- 其他已有的 SQL 语句（如 insert、delete、update、selectAll 等）保持不变 -->
+
+    <!-- 添加 selectHotGoods 的 SQL 映射 -->
+    <select id="selectHotGoods" resultType="com.example.entity.Goods">
+        SELECT * FROM goods
+        WHERE status = '上架'
+        ORDER BY sale_count DESC
+            LIMIT #{limit}
+    </select>
+
+</mapper>

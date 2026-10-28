@@ -1,0 +1,54 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    color: #333;
+    font-size: 14px;
+}
+
+a {
+    color: #1967e3;
+    text-decoration: none;
+}
+
+th {
+    color: #333 !important;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+}
+
+.front-container {
+    width: 60%; margin: 0 auto;
+    padding: 10px 0;
+    min-height: 100vh
+}
+
+.myEff {
+    max-width: 500px;
+}
+
+.line1 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.line2 {
+    word-break: break-all;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* 超出几行省略 */
+    overflow: hidden;
+}
+/* 整个页面使用自定义光标 */
+* {
+    cursor: url('/cursor.png') 16 16, auto;
+}

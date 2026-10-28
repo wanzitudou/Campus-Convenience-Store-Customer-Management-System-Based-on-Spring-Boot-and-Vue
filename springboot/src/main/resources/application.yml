@@ -1,0 +1,55 @@
+# ============================================================
+#  Spring Boot 应用配置（提交到 Git 的版本，不含任何密钥）
+#
+#  敏感信息（数据库密码、大模型 API Key）全部通过环境变量注入。
+#  本地开发推荐做法：新建 application-local.yml 填写明文，
+#  该文件已在 .gitignore 中被忽略，不会被提交。
+# ============================================================
+server:
+  port: 9090
+
+spring:
+  # 默认激活 local 配置；没有 application-local.yml 时会自动跳过，不影响启动
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:local}
+
+  # ---------- 大模型（DeepSeek，OpenAI 兼容协议）----------
+  # 注意：这里**不能**写真实密钥。默认值只是占位符，保证没有本地配置时也能启动；
+  # 真实密钥请写到 application-local.yml（已 gitignore）或环境变量 DEEPSEEK_API_KEY。
+  ai:
+    openai:
+      api-key: ${DEEPSEEK_API_KEY:sk-not-configured}
+      base-url: ${DEEPSEEK_BASE_URL:https://api.deepseek.com}
+      chat:
+        options:
+          model: ${DEEPSEEK_MODEL:deepseek-chat}
+
+  # ---------- 数据库 ----------
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:123456}
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:code2026}?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2b8&allowPublicKeyRetrieval=true
+
+  # ---------- 文件上传大小限制 ----------
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+# ---------- MyBatis ----------
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.entity
+  configuration:
+    # 开启驼峰命名自动映射：数据库 sale_count -> 实体 saleCount
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 文件下载地址前缀（拼上 server.port 后返回给前端）
+fileBaseUrl: ${FILE_BASE_URL:http://localhost}
+
+# 智能推荐服务（Python FastAPI）地址，不可用时会自动降级为热销商品
+recommend:
+  service:
+    url: ${RECOMMEND_SERVICE_URL:http://localhost:8000/recommend}

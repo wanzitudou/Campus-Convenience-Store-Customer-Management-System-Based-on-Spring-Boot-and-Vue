@@ -1,0 +1,42 @@
+# ===================== 构建产物 =====================
+target/
+dist/
+build/
+*.class
+*.jar
+!**/maven-wrapper.jar
+
+# ===================== 依赖 =====================
+node_modules/
+
+# ===================== IDE =====================
+.idea/
+*.iml
+*.iws
+.vscode/
+
+# ===================== 本地配置（含密钥，绝对不能提交）=====================
+# 数据库密码、DeepSeek API Key 都放在这个文件里
+application-local.yml
+springboot/src/main/resources/application-local.yml
+*.local.yml
+.env.local
+
+# ===================== 运行时产生的文件 =====================
+logs/
+*.log
+# 上传文件目录：忽略用户上传的内容，但保留内置的商品占位图
+# （占位图是项目的一部分，缺失会导致 clone 下来图片全空）
+files/*
+!files/goods-*.svg
+
+# ===================== Python =====================
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+python_recommend/artifacts/
+
+# ===================== 系统 =====================
+.DS_Store
+Thumbs.db
