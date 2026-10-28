@@ -37,13 +37,13 @@
     <div class="character-box">
       <img
           v-if="!isPasswordFocused"
-          src="/eye-open.png"
+          src="/eye-open.jpg"
           alt="睁眼"
           class="character-img"
       >
       <img
           v-else
-          src="/eye-close.png"
+          src="/eye-close.jpg"
           alt="闭眼"
           class="character-img"
       >
@@ -154,7 +154,7 @@ const login = () => {
   }
 }
 .login-container {
-  background: url('/blackground.png') no-repeat center center fixed;
+  background: url('/blackground.jpg') no-repeat center center fixed;
   background-size: cover;
 }
 </style>
