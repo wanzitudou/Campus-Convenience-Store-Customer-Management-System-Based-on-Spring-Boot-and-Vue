@@ -37,7 +37,7 @@ Write-Host "正在重置 $Table 表中 '$Username' 的密码为 '$Password' ..."
 # 用临时配置文件传账号密码，避免 mysql 输出
 # "Using a password on the command line interface can be insecure" 警告
 $optFile = Join-Path $env:TEMP ('dsh-mysql-' + [guid]::NewGuid().ToString('N') + '.cnf')
-"[client]`nuser=root`npassword=123456`ndefault-character-set=utf8mb4`n" |
+"[client]`nuser=root`npassword=$($env:DB_PASSWORD)`ndefault-character-set=utf8mb4`n" |
     Set-Content -Path $optFile -Encoding ASCII
 try {
     & $mysql "--defaults-extra-file=$optFile" code2026 -e $sql

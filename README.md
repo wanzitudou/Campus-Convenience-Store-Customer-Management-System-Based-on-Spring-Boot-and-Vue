@@ -201,7 +201,7 @@ code2026/
 ├── springboot/                      # 后端
 │   ├── src/main/java/com/example/
 │   │   ├── common/                  # Result 统一响应、CorsConfig、AppConfig(RestTemplate)
-│   │   ├── controller/              # 15 个 REST 控制器
+│   │   ├── controller/              # 13 个 REST 控制器
 │   │   ├── entity/                  # 12 个实体类
 │   │   ├── exception/               # 自定义异常 + 全局异常处理
 │   │   ├── mapper/                  # MyBatis Mapper 接口
@@ -218,7 +218,7 @@ code2026/
 │       ├── router/index.js          # 路由（/manager 后台，/front 前台）
 │       ├── utils/request.js         # Axios 封装与拦截器
 │       └── views/
-│           ├── manager/             # 后台 12 个页面
+│           ├── manager/             # 后台 13 个页面
 │           └── front/               # 前台 10 个页面
 ├── python_recommend/                # 推荐服务
 │   ├── recommend_implicit.py        # 从 MySQL 训练模型
@@ -298,7 +298,7 @@ spring:
 
 ```bash
 DEEPSEEK_API_KEY=sk-xxx
-DB_PASSWORD=123456
+DB_PASSWORD=<你的数据库口令>
 RECOMMEND_SERVICE_URL=http://localhost:8000/recommend
 ```
 
@@ -384,7 +384,7 @@ curl -X POST http://localhost:8000/recommend -H "Content-Type: application/json"
 
 | 场景 | 结果 |
 | --- | --- |
-| 训练（真实行为：5 购买 + 4 收藏 + 3 评价 = 7 条交互，2 用户 / 6 商品） | 输出 `algo=als`，2.89s |
+| 训练（真实行为：5 购买 + 4 收藏 + 3 评价 = 12 条行为记录，去重后 7 个用户-商品对，2 用户 / 6 商品） | 输出 `algo=als`，2.89s |
 | `POST :8000/recommend` user=12 top_n=2 | `source=als`，ids=`3,2` |
 | `POST :8000/recommend` user=999（无行为） | `source=cold_start`，ids=`7,3,4,6`（热门兜底） |
 | `GET :9090/web/recommend?userId=12`（Java 转发） | ids=`3,2` —— 与 Python 一致，**说明跨语言调用真正生效** |
